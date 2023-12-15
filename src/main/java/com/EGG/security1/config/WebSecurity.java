@@ -1,4 +1,4 @@
-package com.egg.security1.config;
+package com.EGG.security1.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.egg.security1.services.UsuarioServices;
+import com.EGG.security1.services.UsuarioServices;
 
 @Configuration
 @EnableWebSecurity

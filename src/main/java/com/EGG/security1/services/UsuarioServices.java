@@ -1,4 +1,4 @@
-package com.egg.security1.services;
+package com.EGG.security1.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.egg.security1.entities.User;
-import com.egg.security1.repositories.UserRepository;
+import com.EGG.security1.entities.User;
+import com.EGG.security1.repositories.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
 
