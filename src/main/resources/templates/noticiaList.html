@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Noticias</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/news.svg}" type="image/x-icon">
+</head>
+
+<body>
+    <header class="titulo">
+        <h1>Lista de Noticias</h1>
+    </header>
+
+    <nav class="nav">
+        <a aria-current="page" href="/">Home</a>
+        <a aria-current="page" href="/admin/">Panel Admin</a>
+    </nav>
+
+    <div class="main">
+        <p>Aquí verás las opciones para poder ver las noticias, modificarlas, borrarlas o agregar nuevas</p>
+    </div>
+
+    <nav class="nav">
+        <a aria-current="page" href="/admin/lista">Lista de noticias</a>
+        <a aria-current="page" href="/admin/nueva">Ingresar nueva noticia</a>
+        <a aria-current="page" href="/admin/">Volver</a>
+    </nav>
+
+    <div class="main">
+
+        <div th:if="${noticias.isEmpty()}">No hay noticias cargadas</div>
+
+        <div th:if="${!noticias.isEmpty()}">
+            <table class="tabla">
+
+                <thead>
+                    <tr>
+                        <th>ID de noticia</th>
+                        <th>Título</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody th:each="noticia: ${noticias}">
+                    <tr>
+                        <td th:text="${noticia.id}"></td>
+                        <td th:text="${noticia.titulo}"></td>
+                        <td><a th:href="@{/admin/modificar/__${noticia.id}__}">Modificar</a></td>
+                        <td>
+                            <form th:action="@{/admin/eliminar/__${noticia.id}__}" method="post">
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+    <footer class="titulo">
+        <h1>PIÉ DE PÁGINA</h1>
+    </footer>
+</body>
+
+</html>

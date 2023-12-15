@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador de Noticias</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/news.svg}" type="image/x-icon">
+</head>
+
+<body>
+    <header class="titulo">
+        <h1>
+            Administrador de Noticias
+        </h1>
+    </header>
+
+    <nav class="nav">
+        <a aria-current="page" href="/">Home</a>
+        <a aria-current="page" href="/admin/">Panel Admin</a>
+    </nav>
+
+    <div class="main">
+        <p>Aquí verás las opciones para poder ver las noticias, modificarlas, borrarlas o agregar nuevas</p>
+    </div>
+
+    <nav class="nav">
+        <a aria-current="page" href="/admin/lista">Lista de noticias</a>
+        <a aria-current="page" href="/admin/nueva">Ingresar nueva noticia</a>
+        <a aria-current="page" href="/admin/">Volver</a>
+    </nav>
+
+    <div class="main">
+        <p>Podrás ver la lista de las noticias más recientes en el apartado "Lista de noticias".</p>
+        <p>En ella también tendras las Acciones "Modificar" y "Eliminar".</p>
+        <p>En la pestaña "Ingresar nueva noticia" podrás cargar la información de la misma.</p>
+        <p>Clickando "Volver" regresas a esta web.</p>
+    </div>
+
+    <footer class="titulo">
+        <h1>PIÉ DE PÁGINA</h1>
+    </footer>
+</body>
+
+</html>

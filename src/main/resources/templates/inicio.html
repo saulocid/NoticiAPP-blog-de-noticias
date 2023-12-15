@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de noticias</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/news.svg}" type="image/x-icon">
+</head>
+
+<body>
+    <header class="titulo">
+        <h1>
+            PÁGINA DE NOTICIAS
+        </h1>
+    </header>
+
+    <nav class="nav">
+        <a aria-current="page" href="/">Home</a>
+        <a aria-current="page" href="/admin/">Panel Admin</a>
+    </nav>
+
+    <div class="main">
+        <h2>Aquí veras las noticias más recientes</h2>
+        <div>
+            <p th:if="${noticias.isEmpty()}">No hay noticias cargadas aún</p>
+            <div th:if="${!noticias.isEmpty()}">
+                <div class="tabla" th:each="noticia: ${noticias}">
+                    <a th:href="@{/cuerpo/__${noticia.id}__}">
+                        <p th:text="${noticia.titulo}"></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+<footer class="titulo">
+
+    <!-- Footer Links -->
+    <div class="container">
+  
+      <!-- Grid row -->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+  
+          <!-- Content -->
+          <h2>Noticias punto com</h2>
+          <p>Trayendo noticias de todas partes del mundo a tu alcance</p>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <hr class="clearfix w-100 d-md-none pb-3">
+  
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+  
+          <!-- Links -->
+          <h5 class="text-uppercase">Redes</h5>
+  
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">Link 1</a>
+            </li>
+            <li>
+              <a href="#!">Link 2</a>
+            </li>
+            <li>
+              <a href="#!">Link 3</a>
+            </li>
+            <li>
+              <a href="#!">Link 4</a>
+            </li>
+          </ul>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+  
+          <!-- Links -->
+          <h5 class="text-uppercase">Links</h5>
+  
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">Link 1</a>
+            </li>
+            <li>
+              <a href="#!">Link 2</a>
+            </li>
+            <li>
+              <a href="#!">Link 3</a>
+            </li>
+            <li>
+              <a href="#!">Link 4</a>
+            </li>
+          </ul>
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
+    </div>
+    <!-- Footer Links -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2023 <span th:text="-  ${fecha}"></span> Copyright:
+      <a href="/"> Noticias punto com</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
+
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+:root {
+    --pri: #cfcfcf;
+    --sec: #1b1b1b;
+    --ter: #ffffff;
+    --cua: #000000;
+    --qui: #3700ff;
+    --sex: #9900ff;
+}
+
+* {
+    margin: 0 auto;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+}
+
+body {
+    background-color: var(--pri);
+    color: var(--sec);
+    display: block;
+}
+
+.titulo {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: var(--sec);
+    color: var(--pri);
+}
+
+.nav {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: var(--ter);
+    color: var(--sec);
+}
+
+a {
+    text-decoration: none;
+    color: var(--sec);
+}
+
+a:hover {
+    color: var(--qui);
+    filter: drop-shadow(0 0 2px var(--sex));
+    transition: 30ms;
+}
+
+a:not(:hover) {
+    transition: 30ms;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: inline-block;
+    padding-right: 25px;
+}
+
+.main > * {
+    margin: 20px
+}
+
+.main p,
+h1,
+h2,
+h3 {
+    margin: 20px;
+}
+
+.tabla {
+    border: var(--qui) 2px solid;
+    background-color: var(--pri);
+    border-radius: 5px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+footer a {
+    color: var(--sex);
+}
+
+footer > * {
+    margin: 10px;
+}
+
+form>* {
+    margin: 10px;
+}
