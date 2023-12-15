@@ -1,7 +1,6 @@
 package com.EGG.noticia.configurations;
 
 import com.EGG.noticia.services.UsuarioService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +17,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurity {
 
         @Autowired
-        public UsuarioService usuarioServices;
+        public UsuarioService us;
 
         @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-                auth.userDetailsService(usuarioServices).passwordEncoder(new BCryptPasswordEncoder());
+                auth.userDetailsService(us).passwordEncoder(new BCryptPasswordEncoder());
         }
 
         @Bean
