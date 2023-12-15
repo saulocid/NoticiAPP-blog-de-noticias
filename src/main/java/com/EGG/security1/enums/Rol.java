@@ -1,4 +1,4 @@
-package com.egg.security1.enums;
+package com.EGG.security1.enums;
 
 public enum Rol {
     ADMIN,
