@@ -1,4 +1,4 @@
-package com.EGG.security1;
+package com.egg.security1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
