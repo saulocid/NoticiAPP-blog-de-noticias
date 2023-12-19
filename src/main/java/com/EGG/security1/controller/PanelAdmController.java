@@ -63,7 +63,7 @@ public class PanelAdmController {
             ns.crearNoticia(titulo, cuerpo);
             return "redirect:/admin/lista";
         } catch (MyException e) {
-            model.put("error", e.getMessage());
+            model.addAttribute("error", e.getMessage());
             return "redirect:/admin/lista";
         }
     }
@@ -82,11 +82,8 @@ public class PanelAdmController {
             ns.modificarNoticia(id, titulo, cuerpo);
             return "redirect:/admin/lista";
         } catch (MyException ex) {
-            model.put("error", ex.getMessage());
-            model.addAttribute("noticia", ns.noticia(id));
-            int fecha = ns.fecha();
-            model.addAttribute("fecha", fecha);
-            return "noticiaChange";
+            model.addAttribute("error", ex.getMessage());
+            return "redirect:/admin/modificar/{id}";
         }
     }
 

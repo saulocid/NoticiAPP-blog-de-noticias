@@ -23,25 +23,29 @@ public class OpinionController {
     private OpinionServices os;
 
     @GetMapping("/")
-    public String opinion(Model model, ModelMap modelo) {
-        if (!model.containsAttribute("opinion")) {
-            model.addAttribute("opinion", new Opinion());
-        }
-        List<Opinion> opiniones = os.listarOpiniones();
-        modelo.put("opiniones", opiniones);
+    public String opinion(Model mo, ModelMap model) {
+        modelos(mo, model);
         return "opinion";
     }
 
     @PostMapping("/envio")
-    public String envio(ModelMap model, @ModelAttribute Opinion opinion) {
+    public String envio(Model mo, ModelMap model, @ModelAttribute Opinion opinion) {
         try {
             os.crearOpinion(opinion.getId(), opinion.getEmail(), opinion.getMensaje());
-            model.put("exito", "El mensaje se ha enviado exitosamente!");
+            model.addAttribute("exito", "El mensaje se ha enviado exitosamente!");
+            modelos(mo, model);
             return "opinion";
         } catch (Exception e) {
-            model.put("error", "Ha ocurrido un error y no se ha enviado el mensaje! Intente nuevamente.");
+            model.addAttribute("error", "Ha ocurrido un error y no se ha enviado el mensaje! Intente nuevamente.");
+            modelos(mo, model);
             return "opinion";
         }
+    }
+
+    public void modelos(Model mo, ModelMap model) {
+        mo.addAttribute("opinion", new Opinion());
+        List<Opinion> opiniones = os.listarOpiniones();
+        model.addAttribute("opiniones", opiniones);
     }
 
 }
