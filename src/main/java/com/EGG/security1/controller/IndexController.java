@@ -20,7 +20,7 @@ public class IndexController {
     @Autowired
     private NoticiaServices ns;
     
-    @GetMapping("/")
+    @GetMapping("/inicio")
     public String home(ModelMap model){
         List<Noticia> noticias = ns.listarNoticias();
         Collections.reverse(noticias);
@@ -29,6 +29,6 @@ public class IndexController {
         model.addAttribute("fecha", fecha);
         return "inicio";
     }
-    
+
 
 }
