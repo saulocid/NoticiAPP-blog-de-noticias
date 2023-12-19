@@ -29,5 +29,6 @@ public class IndexController {
         model.addAttribute("fecha", fecha);
         return "inicio";
     }
+    
 
 }
