@@ -1,99 +1,75 @@
-:root {
-    --pri: #cfcfcf;
-    --sec: #1b1b1b;
-    --ter: #ffffff;
-    --cua: #000000;
-    --qui: #3700ff;
-    --sex: #9900ff;
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #6eb6e6, #6eb6e6);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-* {
+
+header {
+    background: #3498db;
+    color: #fff;
+    padding: 20px 0;
+    border-bottom: 2px solid #fff;
+}
+
+.container {
+    width: 80%;
     margin: 0 auto;
     text-align: center;
-    justify-items: center;
-    align-items: center;
+    flex: 1;
 }
 
-body {
-    background-color: var(--pri);
-    color: var(--sec);
-    display: block;
+nav {
+    text-align: center;
 }
 
-.titulo {
-    padding-top: 25px;
-    padding-bottom: 25px;
-    background-color: var(--sec);
-    color: var(--pri);
-}
-
-.nav {
-    padding-top: 25px;
-    padding-bottom: 25px;
-    background-color: var(--ter);
-    color: var(--sec);
-}
-
-a {
-    text-decoration: none;
-    color: var(--sec);
-}
-
-a:hover {
-    color: var(--qui);
-    filter: drop-shadow(0 0 2px var(--sex));
-    transition: 30ms;
-}
-
-a:not(:hover) {
-    transition: 30ms;
-}
-
-ul {
+nav ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-li {
+nav ul li {
     display: inline-block;
-    padding-right: 25px;
+    margin: 0 10px;
+    padding: 10px;
+    border-radius: 8px;
 }
 
-.main > * {
-    margin: 20px
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    background: linear-gradient(to right, #2980b9, #9b59b6);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-.main p,
-h1,
-h2,
-h3 {
-    margin: 20px;
+nav a:hover {
+    background: #fff;
+    color: #3498db;
 }
 
-.tabla {
-    border: var(--qui) 2px solid;
-    background-color: var(--pri);
-    border-radius: 5px;
+.main-content {
+    padding: 40px 0;
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
+h2 {
+    color: #2980b9;
 }
 
-table,
-th,
-td {
-    border: 1px solid black;
-}
-
-footer a {
-    color: var(--sex);
-}
-
-footer > * {
-    margin: 10px;
-}
-
-form>* {
-    margin: 10px;
+footer {
+    background: #3498db;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin-top: auto;
 }
