@@ -9,12 +9,13 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Noticia {
+public class Opinion {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String titulo;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+    private String email;
     @Column(columnDefinition = "LONGTEXT")
-    private String cuerpo;
+    private String mensaje;
 
 }

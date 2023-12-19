@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments/head :: head}"></div>
+</head>
+
+<body>
+    <header>
+        <div th:replace="~{fragments/header :: header}"></div>
+    </header>
+
+    <section class="main-content">
+        <div class="container">
+            <p class="exito" th:if="${exito!=null}" th:text="${exito}"></p>
+            <p class="error" th:if="${error!=null}" th:text="${error}"></p>
+        </div>
+        <div class="container">
+            <h2>OPINIÓN</h2>
+            <p>Deja tu comentario para hacernos saber tus opiniones sobre la web, en qué mejorar y qué te gustaría que
+                hubiese.</p>
+        </div>
+        <div th:if="${opiniones!=null}">
+            <h2 class="container">¿Qué dicen los usuarios?</h2>
+            <div class="container" th:each="opinion : ${opiniones}">
+                <h3 th:text="${opinion.getEmail()}"></h3>
+                <p th:text="${opinion.getMensaje()}"></p>
+            </div>
+        </div>
+        <div class="container">
+            <form class="opinion" action="/opinion/envio" method="post" th:object="${opinion}">
+                <input type="hidden" th:field="*{id}" />
+                <label for="email">Email</label><br />
+                <input type="email" th:field="*{email}" required><br />
+                <label for="mensaje">Mensaje</label><br />
+                <textarea th:field="*{mensaje}" cols="100" rows="15"></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </footer>
+
+</body>
+
+</html>

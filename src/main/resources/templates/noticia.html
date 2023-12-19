@@ -2,35 +2,26 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noticias Expandidas</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="icon" th:href="@{/news.svg}" type="image/x-icon">
+    <div th:replace="fragments/head :: head"></div>
 </head>
 
 <body>
-    <header class="titulo">
-        <h1>
-            PÁGINA DE NOTICIAS
-        </h1>
+    <header>
+        <div th:replace="fragments/header :: header"></div>
     </header>
 
-    <nav class="nav">
-        <a aria-current="page" href="/">Home</a>
-        <a aria-current="page" href="/admin/">Panel Admin</a>
-    </nav>
-
-    <div class="main">
-        <div class="tabla" th:href="@{/}">
-            <h1 th:text="${noticia.titulo}"></h1>
-            <p th:text="${noticia.cuerpo}"></p>
+    <div class="main-content">
+        <div class="container">
+            <div class="tabla" th:href="@{/}">
+                <h1 th:text="${noticia.titulo}"></h1>
+                <p th:text="${noticia.cuerpo}"></p>
+            </div>
         </div>
     </div>
 
-    <footer class="titulo">
-        <h1>PIE DE PÁGINA</h1>
-    </footer>
+    <footer>
+        <div th:replace="fragments/footer :: footer"></div>
+      </footer>
 </body>
 
 </html>

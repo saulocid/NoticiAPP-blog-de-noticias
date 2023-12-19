@@ -2,44 +2,32 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administrador de Noticias</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="icon" th:href="@{/news.svg}" type="image/x-icon">
+    <div th:replace="fragments/head :: head"></div>
 </head>
 
 <body>
-    <header class="titulo">
-        <h1>
-            Administrador de Noticias
-        </h1>
+    <header>
+        <div th:replace="fragments/header :: header"></div>
     </header>
 
-    <nav class="nav">
-        <a aria-current="page" href="/">Home</a>
-        <a aria-current="page" href="/admin/">Panel Admin</a>
-    </nav>
+    <p class="container">Aquí verás las opciones para poder ver las noticias, modificarlas, borrarlas o agregar nuevas
+    </p><br />
 
-    <div class="main">
-        <p>Aquí verás las opciones para poder ver las noticias, modificarlas, borrarlas o agregar nuevas</p>
-    </div>
+    <section>
+        <div th:replace="fragments/nav :: nav"></div>
+    </section>
 
-    <nav class="nav">
-        <a aria-current="page" href="/admin/lista">Lista de noticias</a>
-        <a aria-current="page" href="/admin/nueva">Ingresar nueva noticia</a>
-        <a aria-current="page" href="/admin/">Volver</a>
-    </nav>
+    <section class="main-content">
+        <div class="container">
+            <p>Podrás ver la lista de las noticias más recientes en el apartado "Lista de noticias".</p>
+            <p>En ella también tendras las Acciones "Modificar" y "Eliminar".</p>
+            <p>En la pestaña "Ingresar nueva noticia" podrás cargar la información de la misma.</p>
+            <p>Clickando "Volver" regresas a esta web.</p>
+        </div>
+    </section>
 
-    <div class="main">
-        <p>Podrás ver la lista de las noticias más recientes en el apartado "Lista de noticias".</p>
-        <p>En ella también tendras las Acciones "Modificar" y "Eliminar".</p>
-        <p>En la pestaña "Ingresar nueva noticia" podrás cargar la información de la misma.</p>
-        <p>Clickando "Volver" regresas a esta web.</p>
-    </div>
-
-    <footer class="titulo">
-        <h1>PIÉ DE PÁGINA</h1>
+    <footer>
+        <div th:replace="fragments/footer :: footer"></div>
     </footer>
 </body>
 

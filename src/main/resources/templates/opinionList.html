@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/head :: head"></div>
+</head>
+
+<body>
+    <header>
+        <div th:replace="fragments/header :: header"></div>
+    </header>
+
+    <p class="container">Aquí verás las opciones para poder ver las noticias, modificarlas, borrarlas o agregar nuevas
+    </p><br />
+
+    <section>
+        <div th:replace="fragments/nav :: nav"></div>
+    </section>
+
+    <section class="main-content">
+        <div class="container">
+           <p th:if="${opiniones.isEmpty()}">Aún no hay opiniones que administrar</p>
+           <div th:if="${!opiniones.isEmpty()}">
+
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th>ID de opinion</th>
+                        <th>Email</th>
+                        <th>Opinión</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody th:each="op: ${opiniones}">
+                    <tr>
+                        <td th:text="${op.id}"></td>
+                        <td th:text="${op.email}"></td>
+                        <td th:text="${op.mensaje}"></td>
+                        <td>
+                            <form th:action="@{/admin/eliminarOpinion/__${op.id}__}" method="post">
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+           </div>
+        </div>
+    </section>
+
+    <footer>
+        <div th:replace="fragments/footer :: footer"></div>
+    </footer>
+</body>
+
+</html>

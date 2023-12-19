@@ -2,52 +2,40 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargar Noticias</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="icon" th:href="@{/news.svg}" type="image/x-icon">
+    <div th:replace="fragments/head :: head"></div>
 </head>
 
 <body>
-    <header class="titulo">
-        <h1>
-            Cargar nueva noticia
-        </h1>
+    <header>
+        <div th:replace="fragments/header :: header"></div>
     </header>
 
-    <nav class="nav">
-        <a aria-current="page" href="/">Home</a>
-        <a aria-current="page" href="/admin/">Panel Admin</a>
-    </nav>
+    <p class="container">Aquí verás las opciones para poder ver las noticias, modificarlas, borrarlas o agregar nuevas
+    </p><br />
 
-    <div class="main">
-        <p>Aquí verás las opciones para poder ver las noticias, modificarlas, borrarlas o agregar nuevas</p>
-    </div>
+    <section>
+        <div th:replace="fragments/nav :: nav"></div>
+    </section>
 
-    <nav class="nav">
-        <a aria-current="page" href="/admin/lista">Lista de noticias</a>
-        <a aria-current="page" href="/admin/nueva">Ingresar nueva noticia</a>
-        <a aria-current="page" href="/admin/">Volver</a>
-    </nav>
-
-    <div class="main">
-        <h3>Datos</h3>
-        <form class="tabla" action="/admin/nueva" method="post">
-            <label for="titulo">Título de noticia</label><br />
-            <input type="text" name="titulo" id="titulo" required placeholder="Ingrese título"><br />
-            <label for="cuerpo">Cuerpo de noticia</label><br />
-            <textarea name="cuerpo" id="cuerpo" cols="30" rows="10" required
-                placeholder="Ingrese cuerpo"></textarea><br />
-            <button type="submit">Crear</button>
-        </form>
-        <div th:if="${error != null}">
-            <p th:text="${error}"></p>
+    <section class="main-content">
+        <div class="container">
+            <h3>Datos</h3>
+            <form class="tabla opinion" action="/admin/nueva" method="post">
+                <label for="titulo">Título de noticia</label><br />
+                <input type="text" name="titulo" id="titulo" required placeholder="Ingrese título"><br />
+                <label for="cuerpo">Cuerpo de noticia</label><br />
+                <textarea name="cuerpo" id="cuerpo" cols="100" rows="15" required
+                    placeholder="Ingrese cuerpo"></textarea><br />
+                <button type="submit">Crear</button>
+            </form>
+            <div th:if="${error != null}">
+                <p th:text="${error}"></p>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <footer class="titulo">
-        <h1>PIE DE PÁGINA</h1>
+    <footer>
+        <div th:replace="fragments/footer :: footer"></div>
     </footer>
 </body>
 

@@ -12,15 +12,9 @@
 
   <section class="main-content">
     <div class="container">
-      <h2>Aquí veras las noticias más recientes</h2>
-      <p th:if="${noticias.isEmpty()}">No hay noticias cargadas aún</p>
-      <div th:if="${!noticias.isEmpty()}">
-        <div class="tabla" th:each="noticia: ${noticias}">
-          <a th:href="@{/cuerpo/__${noticia.id}__}">
-            <h3 th:text="${noticia.titulo}"></h3>
-          </a>
-        </div>
-      </div>
+      <h2>CONTACTO</h2>
+      <p>Para más información contáctanos en las siguientes redes sociales</p>
+      <button type="button"><a href="http://www.facebook.com" target="_blank" rel="noopener noreferrer">Noticias Punto Com</a></button>
     </div>
   </section>
 
