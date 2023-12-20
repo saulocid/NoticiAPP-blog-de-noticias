@@ -6,13 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue( generator = "uuid")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String username;
     private String password;

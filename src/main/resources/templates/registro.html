@@ -16,7 +16,7 @@
   </div>
   <div class="container" id="container">
     <div class="form-container sign-up-container">
-      <form action="#">
+      <form action="/inicio/registrar" method="post">
         <h1>Crear cuenta</h1>
         <div class="social-container">
           <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -24,12 +24,13 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>O usa alguna de estas aplicaciones</span>
-        <input type="text" placeholder="Nombre de usuario" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Contraseña" />
-        <input type="password2" placeholder="Repetir cotraseña" />
-        <button>Registrar</button>
+        <input type="text" name="usuario" placeholder="Nombre de usuario" required/>
+        <input type="email" name="email" placeholder="Email" required/>
+        <input type="password" name="password" placeholder="Contraseña" required/>
+        <input type="password" name="password2" placeholder="Repetir cotraseña" required/>
+        <button type="submit">Registrar</button>
       </form>
+      <p th:if="${error!=null}" th:text="${error}"></p>
     </div>
     <div class="form-container sign-in-container">
       <form action="#">
