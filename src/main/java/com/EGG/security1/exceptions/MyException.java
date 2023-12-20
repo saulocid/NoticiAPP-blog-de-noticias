@@ -1,4 +1,4 @@
-package com.EGG.exceptions;
+package com.EGG.security1.exceptions;
 
 public class MyException extends Exception {
 

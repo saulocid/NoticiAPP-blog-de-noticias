@@ -9,8 +9,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.EGG.exceptions.MyException;
 import com.EGG.security1.entities.Noticia;
+import com.EGG.security1.exceptions.MyException;
 import com.EGG.security1.repositories.NoticiaRepository;
 
 

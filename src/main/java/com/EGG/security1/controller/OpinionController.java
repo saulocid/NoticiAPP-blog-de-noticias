@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.EGG.exceptions.MyException;
+
 import com.EGG.security1.entities.Opinion;
+import com.EGG.security1.exceptions.MyException;
 import com.EGG.security1.services.OpinionServices;
 
 @Controller
