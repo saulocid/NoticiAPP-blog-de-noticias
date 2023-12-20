@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.EGG.security1.exceptions.MyException;
 import com.EGG.security1.services.UsuarioServices;
 
 @Controller
@@ -24,12 +25,23 @@ public class RegistroController {
 
     @PostMapping("/registrar")
     public String registrarUsuario(@RequestParam String usuario, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
+            @RequestParam String password, @RequestParam String password2, ModelMap model) {
         try {
-            us.registrarUsuario(usuario, email, password, password2);
+            us.registrarUsuario(usuario, email, password, password2, model);
+            return "redirect:/";
+        } catch (MyException e) {
+            model.addAttribute("error", e.getMessage());
+            return "registro";
+        }
+    }
+
+    @PostMapping("/logear")
+    public String logear(@RequestParam String email, @RequestParam String password, ModelMap model) {
+        try {
+            us.validarLogin(email, password, model);
             return "redirect:/";
         } catch (Exception e) {
-            modelo.addAttribute("error","No se pudo registrar");
+            model.addAttribute("error", e.getMessage());
             return "registro";
         }
     }

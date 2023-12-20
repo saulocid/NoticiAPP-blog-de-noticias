@@ -30,10 +30,9 @@
         <input type="password" name="password2" placeholder="Repetir cotraseña" required/>
         <button type="submit">Registrar</button>
       </form>
-      <p th:if="${error!=null}" th:text="${error}"></p>
     </div>
     <div class="form-container sign-in-container">
-      <form action="#">
+      <form action="/inicio/logear" method="post">
         <h1>Iniciar Sesión</h1>
         <div class="social-container">
           <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -41,10 +40,11 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>O usa tu cuenta</span>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Contraseña" />
+        <input type="email" name="email" placeholder="Email" />
+        <input type="password" name="password" placeholder="Contraseña" />
         <a href="#">¿Olvidaste tu contraseña?</a>
-        <button>Ingresar</button>
+        <button type="submit">Ingresar</button>
+        <p class="error" th:if="${error!=null}" th:text="${error}"></p>
       </form>
     </div>
     <div class="overlay-container">

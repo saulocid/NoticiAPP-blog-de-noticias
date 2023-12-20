@@ -19,42 +19,36 @@ public class WebSecurity {
         @Autowired
         public UsuarioServices usuarioServices;
 
+        // Encriptado de password
         @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
                 auth.userDetailsService(usuarioServices).passwordEncoder(new BCryptPasswordEncoder());
         }
 
-        // @Bean
-        // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        //         http
-        //                         .authorizeHttpRequests((authz) -> authz
-        //                                         .requestMatchers("/**").permitAll())
-        //                         .formLogin((login) -> login
-        //                                         .loginPage("/login")
-        //                                         .usernameParameter("Username"))
-        //                         .logout((logout) -> logout
-        //                                         .logoutUrl("/logout"))
-        //                         .csrf((csrf) -> csrf.disable());
-        //         return http.build();
-        // }
-
+        // Persimos de usuarios según rol, login y logout
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             http
                 .authorizeHttpRequests((authz) ->
                     authz
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Solo los usuarios con rol ADMIN pueden acceder a /admin/**
-                        .requestMatchers("/journal/**").hasRole("JOURNAL") // Solo los usuarios con rol JOURNAL pueden acceder a /journal/**
-                        .requestMatchers("/user/**").hasRole("USER") // Solo los usuarios con rol USER pueden acceder a /user/**
+                        .requestMatchers("/admin/**").hasRole("JOURNAL") // Solo los usuarios con rol JOURNAL pueden acceder a /admin con limitaciones/**
                         .anyRequest().permitAll() // Permitir el acceso a todas las demás rutas
                 )
                 .formLogin((login) ->
                     login
-                        .loginPage("/login")
-                        .usernameParameter("Username")
+                        .loginPage("/inicio/registro") // GetMapping de registro
+                        .loginProcessingUrl("/inicio/logear") // PostMapping de logeo
+                        .usernameParameter("email") // con qué variable tomamos al usuario
+                        .passwordParameter("password") // con qué contraseña se logea
+                        .defaultSuccessUrl("/") // página que se direcciona al logearse
+                        .permitAll()
                 )
                 .logout((logout) -> logout
-                    .logoutUrl("/logout"))
+                    .logoutUrl("/logout") // PostMapping de cerrie de sesión
+                    .logoutSuccessUrl("/") // página default cuando se deslogea
+                    .permitAll()
+                )
                 .csrf((csrf) -> csrf.disable());
             return http.build();
         }

@@ -247,3 +247,11 @@ input {
 .volver-btn:hover {
   background-color: #0056b3;
 }
+
+.error {
+  background-color: red;
+  color: yellow;
+  border: 1px grey solid;
+  border-radius: 5px;
+  padding: 10px 0;
+}
