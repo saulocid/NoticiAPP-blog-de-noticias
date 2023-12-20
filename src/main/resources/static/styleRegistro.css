@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #f6f5f7;
+  background-image: url('fondo-login.jpg');
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,16 +44,16 @@ a {
 }
 
 button {
-  border-radius: 20px;
-  border: 1px solid #513688;
-  background-color: #513688;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  background: linear-gradient(to right, #2980b9, #9b59b6);
+  transition: background 0.3s ease, color 0.3s ease;
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: transform 80ms ease-in;
 }
 
 button:active {
@@ -91,8 +91,8 @@ input {
 .container {
   background-color: #fff;
   border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-      0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
   width: 768px;
@@ -132,12 +132,15 @@ input {
 }
 
 @keyframes show {
-  0%, 49.99% {
+
+  0%,
+  49.99% {
     opacity: 0;
     z-index: 1;
   }
-  
-  50%, 100% {
+
+  50%,
+  100% {
     opacity: 1;
     z-index: 5;
   }
@@ -154,14 +157,14 @@ input {
   z-index: 100;
 }
 
-.container.right-panel-active .overlay-container{
+.container.right-panel-active .overlay-container {
   transform: translateX(-100%);
 }
 
 .overlay {
-  background: #341671;
-  background: -webkit-linear-gradient(to right, #1c0745, #513688);
-  background: linear-gradient(to right, #1c0745, #513688);
+  background: #3498db;
+  background: -webkit-linear-gradient(to right, #156aa3, #4ea7e2);
+  background: linear-gradient(to right, #156aa3, #4ea7e2);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -170,12 +173,12 @@ input {
   left: -100%;
   height: 100%;
   width: 200%;
-    transform: translateX(0);
+  transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
 
 .container.right-panel-active .overlay {
-    transform: translateX(50%);
+  transform: translateX(50%);
 }
 
 .overlay-panel {
@@ -225,4 +228,8 @@ input {
   width: 40px;
 }
 
-
+#volver{
+  box-sizing: content-box;
+  display: flexbox;
+  background-color: transparent;
+}
