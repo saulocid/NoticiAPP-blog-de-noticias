@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.EGG.security1.entities.Noticia;
 import com.EGG.security1.exceptions.MyException;
 import com.EGG.security1.repositories.NoticiaRepository;
@@ -36,7 +35,7 @@ public class NoticiaServices {
         return noticias;
     }
 
-    public Noticia listarNoticia(Long id) {
+    public Noticia listarNoticia(String id) {
         Noticia noticia = new Noticia();
         noticia = nr.buscarPorId(id);
         return noticia;

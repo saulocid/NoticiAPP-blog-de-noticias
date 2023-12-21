@@ -4,12 +4,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.EGG.security1.entities.Noticia;
-import com.EGG.security1.entities.User;
+import com.EGG.security1.entities.Usuario;
 import com.EGG.security1.services.NoticiaServices;
 import jakarta.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 
@@ -27,13 +28,13 @@ public class IndexController {
     }
 
     // creamos la vista principal de la app de noticias
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_JOURNAL','ROLE_ADMIN','ROLE_MODERATOR')")
     @GetMapping("/inicio")
     public String home(ModelMap model, HttpSession sesion) {
 
         // traemos usuario y validamos si es admin
-
-        User logeado = (User) sesion.getAttribute("usuarioSesion");
-        if (logeado.getRol().toString().equals("ADMIN") || logeado.getRol().toString().equals("JOURNAL")) {
+        Usuario logeado = (Usuario) sesion.getAttribute("usuarioSesion");
+        if (logeado.getRol().toString().equals("ADMIN") || logeado.getRol().toString().equals("JOURNAL") || logeado.getRol().toString().equals("MODERATOR")) {
             return "redirect:/admin/";
         }
 

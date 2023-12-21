@@ -2,11 +2,9 @@ package com.EGG.security1.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-
 import com.EGG.security1.entities.Opinion;
 import com.EGG.security1.exceptions.MyException;
 import com.EGG.security1.repositories.OpinionRepository;

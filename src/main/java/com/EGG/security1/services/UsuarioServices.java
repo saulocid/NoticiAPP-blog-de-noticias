@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,10 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import com.EGG.security1.entities.User;
+import com.EGG.security1.entities.Usuario;
 import com.EGG.security1.enums.Rol;
 import com.EGG.security1.exceptions.MyException;
-import com.EGG.security1.repositories.UserRepository;
+import com.EGG.security1.repositories.UsuarioRepository;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
@@ -25,23 +26,27 @@ import jakarta.transaction.Transactional;
 public class UsuarioServices implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepo;
+    private UsuarioRepository userRepo;
 
     // creamos el usuario UserDetails para adjuntarle los permisos
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User usuario = userRepo.findByEmail(email);
+        Usuario usuario = userRepo.buscarPorEmail(email);
 
         if (usuario != null) {
+
+            // cargamos los permisos en la lista 'permisos'
             List<GrantedAuthority> permisos = new ArrayList<>();
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
             permisos.add(p);
+
+            //setea la configutacion del usuario ya logeado con el usuario actual
             ServletRequestAttributes atrib = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession sesion = atrib.getRequest().getSession();
-            //setea la configutacion del usuario ya logeado con todos sus permisos
             sesion.setAttribute("usuarioSesion", usuario);
-            return new org.springframework.security.core.userdetails.User(usuario.getEmail(), usuario.getPassword(), permisos);
+
+            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
         } else {
             return null;
         }
@@ -50,17 +55,17 @@ public class UsuarioServices implements UserDetailsService {
 
     // registro de usuario
     @Transactional
-    public void registrarUsuario(String usuario, String email, String password, String password2)
-            throws MyException {
+    public void registrarUsuario(String usuario, String email, String password, String password2) throws MyException {
+
         // antes de registrar el usuario validamos los inputs
         validarUsuario(usuario, email, password, password2);
 
         // creamos usuario y seteamos atriburtos
-        User u = new User();
+        Usuario u = new Usuario();
         u.setUsername(usuario);
         u.setEmail(email);
 
-        // codificamos la constraseña antes de setearla
+        // encriptamos la constraseña antes de setearla
         u.setPassword(new BCryptPasswordEncoder().encode(password));
 
         // damos el rol USER por defecto
@@ -71,8 +76,7 @@ public class UsuarioServices implements UserDetailsService {
     }
 
     // validacion de datos de usuario, si no se logra se lanza el error por pantalla
-    public void validarUsuario(String usuario, String email, String password, String password2)
-            throws MyException {
+    public void validarUsuario(String usuario, String email, String password, String password2) throws MyException {
 
         // validamos que los input no estén vacíos
         if (usuario.isEmpty()) {
@@ -99,9 +103,9 @@ public class UsuarioServices implements UserDetailsService {
         }
 
         // buscamos usuarios si existen y...
-        List<User> usuarios = userRepo.findAll();
+        List<Usuario> usuarios = userRepo.findAll();
         if (usuarios != null) {
-            for (User user : usuarios) {
+            for (Usuario user : usuarios) {
 
                 // ...validamos que el usuario no exista
                 if (user.getUsername().equals(usuario)) {
@@ -117,10 +121,10 @@ public class UsuarioServices implements UserDetailsService {
     }
 
     // validamos que el usuario exista y que la contraseña sea igual a la base de datos
-    public void validarLogin(String email, String password, ModelMap model) throws MyException {
+    public void validarLogin(String email, String password) throws MyException {
 
         // validar usuario
-        User usuario = userRepo.findByEmail(email);
+        Usuario usuario = userRepo.buscarPorEmail(email);
         if (usuario == null) {
             throw new MyException("El usuario no existe");
         }

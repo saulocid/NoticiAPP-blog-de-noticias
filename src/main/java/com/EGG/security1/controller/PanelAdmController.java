@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.EGG.security1.entities.Noticia;
 import com.EGG.security1.entities.Opinion;
 import com.EGG.security1.exceptions.MyException;
@@ -20,7 +19,7 @@ import com.EGG.security1.services.OpinionServices;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_JOURNAL')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_JOURNAL','ROLE_MODERATOR')")
 public class PanelAdmController {
 
     @Autowired
@@ -38,11 +37,7 @@ public class PanelAdmController {
 
     @GetMapping("/lista")
     public String lista(ModelMap model) {
-        List<Noticia> noticias = ns.listarNoticias();
-        Collections.reverse(noticias);
-        model.addAttribute("noticias", noticias);
-        int fecha = ns.fecha();
-        model.addAttribute("fecha", fecha);
+        noticiaList(model);
         return "noticiaList";
     }
 
@@ -67,7 +62,8 @@ public class PanelAdmController {
             return "redirect:/admin/lista";
         } catch (MyException e) {
             model.addAttribute("error", e.getMessage());
-            return "redirect:/admin/lista";
+            noticiaList(model);
+            return "noticiaList";
         }
     }
 
@@ -100,6 +96,14 @@ public class PanelAdmController {
     public String eliminarOps(@PathVariable String id, ModelMap model) throws MyException {
         os.eliminarOpinion(id);
         return "redirect:/admin/opiniones";
+    }
+
+    public void noticiaList(ModelMap model) {
+        List<Noticia> noticias = ns.listarNoticias();
+        Collections.reverse(noticias);
+        model.addAttribute("noticias", noticias);
+        int fecha = ns.fecha();
+        model.addAttribute("fecha", fecha);
     }
 
 }

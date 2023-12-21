@@ -11,6 +11,6 @@ import com.EGG.security1.entities.Noticia;
 public interface NoticiaRepository  extends JpaRepository<Noticia,Long>{
     
     @Query("SELECT n FROM Noticia n WHERE n.id = :id")
-    public Noticia buscarPorId(@Param("id") Long id);
+    public Noticia buscarPorId(@Param("id") String id);
 
 }

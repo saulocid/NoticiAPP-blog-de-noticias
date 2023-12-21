@@ -31,7 +31,7 @@ public class WebSecurity {
             http
                 .authorizeHttpRequests((authz) ->
                     authz
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN","JOURNAL") // Solo los usuarios con rol ADMIN pueden acceder a /admin/**
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN","JOURNAL","MODERATOR") // Solo los usuarios con rol ADMIN pueden acceder a /admin/**
                         .anyRequest().permitAll() // Permitir el acceso a todas las demás rutas
                 )
                 .formLogin((login) ->
