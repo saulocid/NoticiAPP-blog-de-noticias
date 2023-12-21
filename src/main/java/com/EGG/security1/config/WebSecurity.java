@@ -31,8 +31,9 @@ public class WebSecurity {
             http
                 .authorizeHttpRequests((authz) ->
                     authz
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN","JOURNAL","MODERATOR") // Solo los usuarios con rol ADMIN pueden acceder a /admin/**
-                        .anyRequest().permitAll() // Permitir el acceso a todas las demás rutas
+                        .requestMatchers("/admin/*").hasAnyRole("ADMIN","JOURNAL","MODERATOR") // Solo los usuarios con rol ADMIN pueden acceder a todos los métodos de la clase PanelAdmController.java
+                        .anyRequest() // Permitir el acceso a todas las demás rutas 
+                        .permitAll() 
                 )
                 .formLogin((login) ->
                     login

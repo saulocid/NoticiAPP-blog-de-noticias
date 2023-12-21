@@ -42,10 +42,10 @@ public class NoticiaServices {
     }
 
     @Transactional
-    public void modificarNoticia(Long id, String titulo, String cuerpo) throws MyException {
+    public void modificarNoticia(String id, String titulo, String cuerpo) throws MyException {
         validar(titulo);
         validar(cuerpo);
-        validarLong(id);
+        validar(id);
         Optional<Noticia> respuesta = nr.findById(id);
         if (respuesta.isPresent()) {
             Noticia noticia = respuesta.get();
@@ -56,8 +56,8 @@ public class NoticiaServices {
     }
 
     @Transactional
-    public void eliminarNoticia(Long id) throws MyException {
-        validarLong(id);
+    public void eliminarNoticia(String id) throws MyException {
+        validar(id);
         try {
             Optional<Noticia> respuesta = nr.findById(id);
             if (respuesta.isPresent()) {
@@ -75,14 +75,7 @@ public class NoticiaServices {
         }
     }
 
-    private void validarLong(Long dato) throws MyException {
-        if (dato == null) {
-            System.out.println("Error");
-            throw new MyException("El dato no puede ser nulo");
-        }
-    }
-
-    public Noticia noticia(Long id){
+    public Noticia noticia(String id){
         Noticia noticia = nr.getReferenceById(id);
         return noticia;
     }

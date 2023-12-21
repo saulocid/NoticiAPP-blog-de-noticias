@@ -27,7 +27,7 @@ public class IndexController {
         return "inicio";
     }
 
-    // creamos la vista principal de la app de noticias
+    // creamos la vista principal de la app de noticias y autorizamos a quienes estén logeados
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_JOURNAL','ROLE_ADMIN','ROLE_MODERATOR')")
     @GetMapping("/inicio")
     public String home(ModelMap model, HttpSession sesion) {
@@ -39,7 +39,6 @@ public class IndexController {
         }
 
         // traemos la lista para poder mostrarla en pantalla con las llaves en el modelmap
-        model.addAttribute("sesion", sesion);
         notiLista(model);
         return "index";
     }

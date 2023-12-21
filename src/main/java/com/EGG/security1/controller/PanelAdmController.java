@@ -3,7 +3,6 @@ package com.EGG.security1.controller;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,6 @@ import com.EGG.security1.services.OpinionServices;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_JOURNAL','ROLE_MODERATOR')")
 public class PanelAdmController {
 
     @Autowired
@@ -68,7 +66,7 @@ public class PanelAdmController {
     }
 
     @GetMapping("/modificar/{id}")
-    public String modificar(@PathVariable Long id, ModelMap model) {
+    public String modificar(@PathVariable String id, ModelMap model) {
         model.addAttribute("noticia", ns.noticia(id));
         int fecha = ns.fecha();
         model.addAttribute("fecha", fecha);
@@ -76,7 +74,7 @@ public class PanelAdmController {
     }
 
     @PostMapping("/modificar/{id}")
-    public String modificar(@PathVariable Long id, String titulo, @RequestParam String cuerpo, ModelMap model) {
+    public String modificar(@PathVariable String id, String titulo, @RequestParam String cuerpo, ModelMap model) {
         try {
             ns.modificarNoticia(id, titulo, cuerpo);
             return "redirect:/admin/lista";
@@ -87,7 +85,7 @@ public class PanelAdmController {
     }
 
     @PostMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable Long id, ModelMap model) throws MyException {
+    public String eliminar(@PathVariable String id, ModelMap model) throws MyException {
         ns.eliminarNoticia(id);
         return "redirect:/admin/lista";
     }
