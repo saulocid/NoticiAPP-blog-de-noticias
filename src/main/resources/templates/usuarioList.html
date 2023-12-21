@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="fragments/head :: head"></div>
+</head>
+
+<body>
+    <header>
+        <div th:replace="fragments/header :: header"></div>
+    </header>
+
+    <p class="container">Aquí verás las opciones para poder ver las noticias, modificarlas, borrarlas o agregar nuevas
+    </p>
+
+    <section>
+        <div th:replace="fragments/nav :: nav"></div>
+    </section>
+
+    <section class="main-content">
+        <div class="container">
+            <p th:if="${usuarios.isEmpty()}">No hay noticias cargadas</p>
+            <div th:if="${!usuarios.isEmpty()}">
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>ID de Usuario</th>
+                            <th>Nombre de Usuario</th>
+                            <th>E-mail</th>
+                            <th>Rol</th>
+                            <th scope="2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="usuario: ${usuarios}">
+                        <tr>
+                            <td th:text="${usuario.id}"></td>
+                            <td th:text="${usuario.username}"></td>
+                            <td th:text="${usuario.email}"></td>
+                            <td th:text="${usuario.rol}"></td>
+                            <td>
+                                <form th:action="@{/admin/cambiarRol/__${usuario.id}__}" method="post">
+                                    <select name="rol" required>
+                                        <option value="USER">Usuario</option>
+                                        <option value="JOURNAL">Periodista</option>
+                                        <option value="ADMIN">Administrador</option>
+                                        <option value="MODERATOR">Moderador</option>
+                                    </select>
+                                    <button class="boton" type="submit">Cambiar Rol</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/admin/eliminarUsuario/__${usuario.id}__}" method="post">
+                                    <button class="boton" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div th:replace="fragments/footer :: footer"></div>
+    </footer>
+</body>
+
+</html>

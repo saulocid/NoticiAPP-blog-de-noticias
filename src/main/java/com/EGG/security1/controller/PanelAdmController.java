@@ -3,6 +3,7 @@ package com.EGG.security1.controller;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.EGG.security1.entities.Noticia;
 import com.EGG.security1.entities.Opinion;
+import com.EGG.security1.entities.Usuario;
+import com.EGG.security1.enums.Rol;
 import com.EGG.security1.exceptions.MyException;
 import com.EGG.security1.services.NoticiaServices;
 import com.EGG.security1.services.OpinionServices;
+import com.EGG.security1.services.UsuarioServices;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,6 +29,9 @@ public class PanelAdmController {
 
     @Autowired
     private OpinionServices os;
+
+    @Autowired
+    private UsuarioServices us;
 
     @GetMapping("/")
     public String admin(ModelMap model) {
@@ -91,9 +98,33 @@ public class PanelAdmController {
     }
 
     @PostMapping("/eliminarOpinion/{id}")
-    public String eliminarOps(@PathVariable String id, ModelMap model) throws MyException {
+    public String eliminarOps(@PathVariable String id) throws MyException {
         os.eliminarOpinion(id);
         return "redirect:/admin/opiniones";
+    }
+
+    @GetMapping("/usuarioList")
+    @PreAuthorize("hasRole('MODERATOR')")
+    public String usuarioList(ModelMap model) {
+        List<Usuario> usuarios = us.listarUsuarios();
+        model.addAttribute("usuarios", usuarios);
+        return "usuarioList";
+    }
+
+    @PostMapping("/cambiarRol/{id}")
+    public String cambiarRol(@PathVariable String id, @RequestParam Rol rol) {
+        try {
+            us.cambiarRol(id, rol);
+            return "redirect:/admin/usuarioList";
+        } catch (Exception e) {
+            return "redirect:/admin/usuarioList";
+        }
+    }
+
+    @PostMapping("/eliminarUsuario/{id}")
+    public String eliminarUsuario(@PathVariable String id) throws MyException {
+        us.eliminarUsuario(id);
+        return "redirect:/admin/usuarioList";
     }
 
     public void noticiaList(ModelMap model) {

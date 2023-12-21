@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <div th:replace="fragments/head :: head"></div>
@@ -19,33 +19,32 @@
 
     <section class="main-content">
         <div class="container">
-           <p th:if="${opiniones.isEmpty()}">Aún no hay opiniones que administrar</p>
-           <div th:if="${!opiniones.isEmpty()}">
+            <p th:if="${opiniones.isEmpty()}">Aún no hay opiniones que administrar</p>
+            <div th:if="${!opiniones.isEmpty()}">
 
-            <table class="tabla">
-                <thead>
-                    <tr>
-                        <th>ID de opinion</th>
-                        <th>Email</th>
-                        <th>Opinión</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody th:each="op: ${opiniones}">
-                    <tr>
-                        <td th:text="${op.id}"></td>
-                        <td th:text="${op.email}"></td>
-                        <td th:text="${op.mensaje}"></td>
-                        <td>
-                            <form th:action="@{/admin/eliminarOpinion/__${op.id}__}" method="post">
-                                <button type="submit">Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-           </div>
+                <table class="tabla">
+                    <thead>
+                        <tr>
+                            <th>ID de opinion</th>
+                            <th>Email</th>
+                            <th>Opinión</th>
+                            <th sec:authorize="hasAnyRole('ADMIN','MODERATOR')">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="op: ${opiniones}">
+                        <tr>
+                            <td th:text="${op.id}"></td>
+                            <td th:text="${op.email}"></td>
+                            <td th:text="${op.mensaje}"></td>
+                            <td sec:authorize="hasAnyRole('ADMIN','MODERATOR')">
+                                <form th:action="@{/admin/eliminarOpinion/__${op.id}__}" method="post">
+                                    <button class="boton" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 

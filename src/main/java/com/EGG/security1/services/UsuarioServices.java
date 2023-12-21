@@ -2,6 +2,8 @@ package com.EGG.security1.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -40,7 +42,7 @@ public class UsuarioServices implements UserDetailsService {
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
             permisos.add(p);
 
-            //setea la configutacion del usuario ya logeado con el usuario actual
+            // setea la configutacion del usuario ya logeado con el usuario actual
             ServletRequestAttributes atrib = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession sesion = atrib.getRequest().getSession();
             sesion.setAttribute("usuarioSesion", usuario);
@@ -70,7 +72,7 @@ public class UsuarioServices implements UserDetailsService {
         // damos el rol USER por defecto
         u.setRol(Rol.USER);
 
-        //persistimos en el repositorio hacia la base de datos
+        // persistimos en el repositorio hacia la base de datos
         userRepo.save(u);
     }
 
@@ -119,7 +121,8 @@ public class UsuarioServices implements UserDetailsService {
         }
     }
 
-    // validamos que el usuario exista y que la contraseña sea igual a la base de datos
+    // validamos que el usuario exista y que la contraseña sea igual a la base de
+    // datos
     public void validarLogin(String email, String password) throws MyException {
 
         // validar usuario
@@ -135,6 +138,43 @@ public class UsuarioServices implements UserDetailsService {
         }
 
         // enviar error al controlador
-        
+
     }
+
+    public List<Usuario> listarUsuarios() {
+        return userRepo.findAll();
+    }
+
+    public Usuario buscarUsuario(String id) {
+        return userRepo.buscarPorId(id);
+    }
+
+    @Transactional
+    public void cambiarRol(String id, Rol opc) throws MyException {
+        validarRol(opc);
+        validarStr(id);
+        Usuario usuario = userRepo.buscarPorId(id);
+        usuario.setRol(opc);
+        userRepo.save(usuario);
+    }
+
+    @Transactional
+    public void eliminarUsuario(String id) throws MyException{
+        validarStr(id);
+        Usuario usuario = userRepo.buscarPorId(id);
+        userRepo.delete(usuario);
+    }
+
+    public void validarStr(String dato) throws MyException {
+        if (dato.isEmpty()) {
+            throw new MyException("El dato no puede ser nulo");
+        }
+    }
+
+    public void validarRol(Rol dato) throws MyException {
+        if (dato == null) {
+            throw new MyException("El dato no puede ser nulo");
+        }
+    }
+
 }

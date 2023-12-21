@@ -17,8 +17,6 @@
         </div>
         <div class="container">
             <h2>OPINIÓN</h2>
-            <p>Deja tu comentario para hacernos saber tus opiniones sobre la web, en qué mejorar y qué te gustaría que
-                hubiese.</p>
         </div>
         <div th:if="${opiniones!=null}">
             <h2 class="container">¿Qué dicen los usuarios?</h2>
@@ -27,14 +25,16 @@
                 <p th:text="${opinion.getMensaje()}"></p>
             </div>
         </div>
-        <div class="container">
+        <div sec:authorize="hasAnyRole('USER','JOURNAL')" class="container">
+            <p>Deja tu comentario para hacernos saber tus opiniones sobre la web, en qué mejorar y qué te gustaría que
+                hubiese.</p>
             <form class="opinion" action="/opinion/envio" method="post" th:object="${opinion}">
                 <input type="hidden" th:field="*{id}" />
                 <label for="email">Email</label><br />
                 <input type="email" th:field="*{email}" required><br />
                 <label for="mensaje">Mensaje</label><br />
-                <textarea th:field="*{mensaje}" cols="100" rows="15"></textarea>
-                <button type="submit">Enviar</button>
+                <textarea th:field="*{mensaje}" cols="100" rows="15"></textarea><br />
+                <button class="boton" type="submit">Enviar</button>
             </form>
         </div>
     </section>

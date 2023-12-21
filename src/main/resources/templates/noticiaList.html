@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <div th:replace="fragments/head :: head"></div>
@@ -26,17 +26,21 @@
                         <tr>
                             <th>ID de noticia</th>
                             <th>Título</th>
-                            <th colspan="2">Acciones</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody th:each="noticia: ${noticias}">
                         <tr>
                             <td th:text="${noticia.id}"></td>
                             <td th:text="${noticia.titulo}"></td>
-                            <td><a th:href="@{/admin/modificar/__${noticia.id}__}">Modificar</a></td>
-                            <td sec:authorize="hasRole('ADMIN')">
+                            <td sec:authorize="hasRole('JOURNAL')">
+                                <a class="boton" th:href="@{/admin/modificar/__${noticia.id}__}">
+                                    Modificar
+                                </a>
+                            </td>
+                            <td sec:authorize="hasAnyRole('ADMIN','MODERATOR')">
                                 <form th:action="@{/admin/eliminar/__${noticia.id}__}" method="post">
-                                    <button type="submit">Eliminar</button>
+                                    <button class="boton" type="submit">Eliminar</button>
                                 </form>
                             </td>
                         </tr>

@@ -5,12 +5,15 @@
         </h1>
         <nav>
             <ul>
-                <li><a href="/">Inicio</a></li>
+                <li>
+                    <a sec:authorize="!hasAnyRole('USER','JOURNAL','ADMIN','MODERATOR')" href="/">Inicio</a>
+                    <a sec:authorize="hasRole('USER')" href="/inicio">Inicio</a>
+                    <a sec:authorize="hasAnyRole('JOURNAL','ADMIN','MODERATOR')" href="/inicio">Panel</a>
+                </li>
                 <li><a href="/contacto/">Contacto</a></li>
                 <li><a href="/opinion/">Opinión</a></li>
-                <!-- <li th:if="${sesion.usuarioSesion == null}"><a href="/sesion/registro">Login/Register</a></li> -->
-                <!-- <li th:if="${sesion.usuarioSesion != null}"><a href="/logout">Cerrar Sesión</a></li> -->
-                <li><a href="/logout">Cerrar Sesión</a></li>
+                <li sec:authorize="!hasAnyRole('USER','JOURNAL','ADMIN','MODERATOR')"><a href="/sesion/registro">Iniciar</a></li>
+                <li sec:authorize="hasAnyRole('USER','JOURNAL','ADMIN','MODERATOR')"><a href="/logout">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </div>

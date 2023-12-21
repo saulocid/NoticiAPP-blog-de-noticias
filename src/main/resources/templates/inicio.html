@@ -7,19 +7,7 @@
 
 <body>
   <header>
-    <div class="container">
-      <h1>
-          PÁGINA DE NOTICIAS
-      </h1>
-      <nav>
-          <ul>
-              <li><a href="/">Inicio</a></li>
-              <li><a href="/contacto/">Contacto</a></li>
-              <li><a href="/opinion/">Opinión</a></li>
-              <li><a href="/sesion/registro">Iniciar</a></li>
-          </ul>
-      </nav>
-  </div>
+    <div th:replace="fragments/header :: header"></div>
   </header>
 
   <section class="main-content">

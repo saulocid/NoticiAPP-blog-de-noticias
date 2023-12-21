@@ -4,15 +4,13 @@
             <li>
                 <a href="/admin/lista">Lista de noticias</a>
             </li>
-            <li>
+            <li sec:authorize="hasRole('JOURNAL')">
                 <a href="/admin/nueva">Ingresar nueva noticia</a>
             </li>
             <li>
                 <a href="/admin/opiniones">Lista opiniones</a>
             </li>
-            <li>
-                <a href="/admin/">Volver</a>
-            </li>
+            <li sec:authorize="hasRole('MODERATOR')"><a href="/admin/usuarioList">Lista Usuarios</a></li>
         </ul>
     </nav>
 </section>

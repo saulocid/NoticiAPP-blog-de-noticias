@@ -43,6 +43,7 @@ nav ul li {
     border-radius: 8px;
 }
 
+.boton,
 nav a {
     color: #fff;
     font-weight: bold;
@@ -53,6 +54,7 @@ nav a {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
+.boton:hover,
 nav a:hover {
     background: #fff;
     color: #3498db;

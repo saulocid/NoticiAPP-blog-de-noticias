@@ -7,9 +7,12 @@ import org.springframework.stereotype.Repository;
 import com.EGG.security1.entities.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario,String> {
+public interface UsuarioRepository extends JpaRepository<Usuario, String> {
 
    @Query("SELECT u FROM Usuario u WHERE u.email = :email")
-   public Usuario buscarPorEmail(@Param("email")String email);
+   public Usuario buscarPorEmail(@Param("email") String email);
+
+   @Query("SELECT u FROM Usuario u WHERE u.id = :id")
+   public Usuario buscarPorId(@Param("id") String id);
 
 }
