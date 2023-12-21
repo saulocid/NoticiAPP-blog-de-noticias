@@ -12,7 +12,7 @@ import com.EGG.security1.exceptions.MyException;
 import com.EGG.security1.services.UsuarioServices;
 
 @Controller
-@RequestMapping("/inicio")
+@RequestMapping("/sesion")
 public class RegistroController {
 
     @Autowired
@@ -27,8 +27,11 @@ public class RegistroController {
     public String registrarUsuario(@RequestParam String usuario, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, ModelMap model) {
         try {
-            us.registrarUsuario(usuario, email, password, password2, model);
-            return "redirect:/";
+            us.registrarUsuario(usuario, email, password, password2);
+            if (model.containsAttribute("error")) {
+                throw new MyException("Error de validación");
+            }
+            return "redirect:/inicio";
         } catch (MyException e) {
             model.addAttribute("error", e.getMessage());
             return "registro";
@@ -39,10 +42,11 @@ public class RegistroController {
     public String logear(@RequestParam String email, @RequestParam String password, ModelMap model) {
         try {
             us.validarLogin(email, password, model);
-            return "redirect:/";
-        } catch (Exception e) {
+            return "redirect:/inicio";
+        } catch (MyException e) {
             model.addAttribute("error", e.getMessage());
             return "registro";
         }
+
     }
 }

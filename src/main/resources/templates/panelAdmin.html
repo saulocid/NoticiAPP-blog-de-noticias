@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <div th:replace="fragments/head :: head"></div>
@@ -11,7 +11,7 @@
     </header>
 
     <p class="container">Aquí verás las opciones para poder ver las noticias, modificarlas, borrarlas o agregar nuevas
-    </p><br />
+    </p>
 
     <section>
         <div th:replace="fragments/nav :: nav"></div>

@@ -6,10 +6,10 @@
         <nav>
             <ul>
                 <li><a href="/">Inicio</a></li>
-                <li><a href="/inicio/registro">Login/Register</a></li>
                 <li><a href="/contacto/">Contacto</a></li>
                 <li><a href="/opinion/">Opinión</a></li>
-                <li><a href="/logout">Cerrar Sesión</a></li>
+                <li th:if="${sesion.usuarioSesion == null}"><a href="/sesion/registro">Login/Register</a></li>
+                <li th:if="${sesion.usuarioSesion != null}"><a href="/logout">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </div>

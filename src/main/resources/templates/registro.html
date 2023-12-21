@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
@@ -16,7 +16,7 @@
   </div>
   <div class="container" id="container">
     <div class="form-container sign-up-container">
-      <form action="/inicio/registrar" method="post">
+      <form action="/sesion/registrar" method="post">
         <h1>Crear cuenta</h1>
         <div class="social-container">
           <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -32,7 +32,7 @@
       </form>
     </div>
     <div class="form-container sign-in-container">
-      <form action="/inicio/logear" method="post">
+      <form action="/sesion/logear" method="post">
         <h1>Iniciar Sesión</h1>
         <div class="social-container">
           <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>

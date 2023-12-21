@@ -31,17 +31,16 @@ public class WebSecurity {
             http
                 .authorizeHttpRequests((authz) ->
                     authz
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // Solo los usuarios con rol ADMIN pueden acceder a /admin/**
-                        .requestMatchers("/admin/**").hasRole("JOURNAL") // Solo los usuarios con rol JOURNAL pueden acceder a /admin con limitaciones/**
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN","JOURNAL") // Solo los usuarios con rol ADMIN pueden acceder a /admin/**
                         .anyRequest().permitAll() // Permitir el acceso a todas las demás rutas
                 )
                 .formLogin((login) ->
                     login
-                        .loginPage("/inicio/registro") // GetMapping de registro
-                        .loginProcessingUrl("/inicio/logear") // PostMapping de logeo
+                        .loginPage("/sesion/registro") // GetMapping de registro
+                        .loginProcessingUrl("/sesion/logear") // PostMapping de logeo
                         .usernameParameter("email") // con qué variable tomamos al usuario
                         .passwordParameter("password") // con qué contraseña se logea
-                        .defaultSuccessUrl("/") // página que se direcciona al logearse
+                        .defaultSuccessUrl("/inicio") // página que se direcciona al logearse
                         .permitAll()
                 )
                 .logout((logout) -> logout

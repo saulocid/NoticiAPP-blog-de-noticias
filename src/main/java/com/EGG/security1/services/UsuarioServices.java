@@ -2,7 +2,6 @@ package com.EGG.security1.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -40,6 +39,8 @@ public class UsuarioServices implements UserDetailsService {
             permisos.add(p);
             ServletRequestAttributes atrib = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession sesion = atrib.getRequest().getSession();
+            //setea la configutacion del usuario ya logeado con todos sus permisos
+            sesion.setAttribute("usuarioSesion", usuario);
             return new org.springframework.security.core.userdetails.User(usuario.getEmail(), usuario.getPassword(), permisos);
         } else {
             return null;
@@ -49,10 +50,10 @@ public class UsuarioServices implements UserDetailsService {
 
     // registro de usuario
     @Transactional
-    public void registrarUsuario(String usuario, String email, String password, String password2, ModelMap model)
+    public void registrarUsuario(String usuario, String email, String password, String password2)
             throws MyException {
         // antes de registrar el usuario validamos los inputs
-        validarUsuario(usuario, email, password, password2, model);
+        validarUsuario(usuario, email, password, password2);
 
         // creamos usuario y seteamos atriburtos
         User u = new User();
@@ -70,7 +71,7 @@ public class UsuarioServices implements UserDetailsService {
     }
 
     // validacion de datos de usuario, si no se logra se lanza el error por pantalla
-    public void validarUsuario(String usuario, String email, String password, String password2, ModelMap model)
+    public void validarUsuario(String usuario, String email, String password, String password2)
             throws MyException {
 
         // validamos que los input no estén vacíos
@@ -113,11 +114,6 @@ public class UsuarioServices implements UserDetailsService {
                 }
             }
         }
-
-        // enviamos los posibles errores al modelmap
-        if (model.containsAttribute("error")) {
-            throw new MyException("Error de validación");
-        }
     }
 
     // validamos que el usuario exista y que la contraseña sea igual a la base de datos
@@ -136,8 +132,6 @@ public class UsuarioServices implements UserDetailsService {
         }
 
         // enviar error al controlador
-        if (model.containsAttribute("error")) {
-            throw new MyException("Error de validación");
-        }
+        
     }
 }

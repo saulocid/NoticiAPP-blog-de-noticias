@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <div th:replace="fragments/head :: head"></div>
@@ -34,7 +34,7 @@
                             <td th:text="${noticia.id}"></td>
                             <td th:text="${noticia.titulo}"></td>
                             <td><a th:href="@{/admin/modificar/__${noticia.id}__}">Modificar</a></td>
-                            <td>
+                            <td sec:authorize="hasRole('ADMIN')">
                                 <form th:action="@{/admin/eliminar/__${noticia.id}__}" method="post">
                                     <button type="submit">Eliminar</button>
                                 </form>

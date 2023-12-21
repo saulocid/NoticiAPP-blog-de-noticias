@@ -3,6 +3,7 @@ package com.EGG.security1.controller;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import com.EGG.security1.services.OpinionServices;
 
 @Controller
 @RequestMapping("/admin")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_JOURNAL')")
 public class PanelAdmController {
 
     @Autowired
