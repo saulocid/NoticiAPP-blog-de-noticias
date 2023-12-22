@@ -13,6 +13,7 @@
   <section class="main-content">
     <div class="container">
       <h2>Aquí veras las noticias más recientes</h2>
+      <h1 th:text="${email}"></h1>
       <p th:if="${noticias.isEmpty()}">No hay noticias cargadas aún</p>
       <div th:if="${!noticias.isEmpty()}">
         <div class="tabla" th:each="noticia: ${noticias}">

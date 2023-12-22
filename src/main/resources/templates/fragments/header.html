@@ -14,6 +14,12 @@
                 <li><a href="/opinion/">Opinión</a></li>
                 <li sec:authorize="!hasAnyRole('USER','JOURNAL','ADMIN','MODERATOR')"><a href="/sesion/registro">Iniciar</a></li>
                 <li sec:authorize="hasAnyRole('USER','JOURNAL','ADMIN','MODERATOR')"><a href="/logout">Cerrar Sesión</a></li>
+                <!-- <li th:if="${usuarioSesion == null}">
+                    <a href="/sesion/registro">Iniciar</a>
+                </li>
+                <li th:if="${usuarioSesion == null}">
+                    <a href="/logout">Cerrar Sesión</a>
+                </li> -->
             </ul>
         </nav>
     </div>

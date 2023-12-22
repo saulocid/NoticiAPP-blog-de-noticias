@@ -54,6 +54,7 @@ public class PanelAdmController {
     }
 
     @GetMapping("/nueva")
+    @PreAuthorize("hasRole('JOURNAL')")
     public String nueva(ModelMap model) {
         int fecha = ns.fecha();
         model.addAttribute("fecha", fecha);

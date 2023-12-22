@@ -34,10 +34,12 @@ public class IndexController {
 
         // traemos usuario y validamos si es admin
         Usuario logeado = (Usuario) sesion.getAttribute("usuarioSesion");
+        model.addAttribute("usuarioSesion", sesion.getAttribute("usuarioSesion"));
+        model.addAttribute("usuario", logeado);
         if (logeado.getRol().toString().equals("ADMIN") || logeado.getRol().toString().equals("JOURNAL") || logeado.getRol().toString().equals("MODERATOR")) {
             return "redirect:/admin/";
         }
-
+        // nos llevamos el usuario con las credenciales de inicio de sesion
         // traemos la lista para poder mostrarla en pantalla con las llaves en el modelmap
         notiLista(model);
         return "index";
@@ -45,7 +47,8 @@ public class IndexController {
 
     // creamos el postmapping para el botón de "cerrar sesión"
     @PostMapping("/logout")
-    public String cerrarSesion() {
+    public String cerrarSesion(HttpSession sesion) {
+        sesion.removeAttribute("usuarioSesion");
         return "redirect:/";
     }
 
