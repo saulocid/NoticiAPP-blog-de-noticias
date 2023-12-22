@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.EGG.security1.exceptions.MyException;
 import com.EGG.security1.services.UsuarioServices;
 
@@ -23,12 +25,10 @@ public class RegistroController {
     }
 
     @PostMapping("/registrar")
-    public String registrarUsuario(@RequestParam String usuario, @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap model) {
+    public String registrarUsuario(@RequestParam MultipartFile archivo, @RequestParam String usuario, @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap model) {
         try {
-            us.registrarUsuario(usuario, email, password, password2);
-            // if (model.containsAttribute("error")) {
-            //     throw new MyException("Error de validación");
-            // }
+            us.registrarUsuario(archivo, usuario, email, password, password2);
+            model.addAttribute("exito", "Usuario creado con éxito. Ahora ingresa.");
             return "registro";
         } catch (MyException e) {
             model.addAttribute("error", e.getMessage());
@@ -40,9 +40,6 @@ public class RegistroController {
     public String logearUsuario(@RequestParam String email, @RequestParam String password, ModelMap model) {
         try {
             us.validarLogin(email, password);
-            // if (model.containsAttribute("error")) {
-            //     throw new MyException("Error de validación");
-            // }
             return "redirect:/inicio";
         } catch (MyException e) {
             model.addAttribute("error", e.getMessage());

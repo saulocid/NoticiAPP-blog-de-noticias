@@ -248,6 +248,14 @@ input {
   background-color: #0056b3;
 }
 
+.exito {
+  background-color: green;
+  color: black;
+  border: 1px grey solid;
+  border-radius: 5px;
+  padding: 10px 0;
+}
+
 .error {
   background-color: red;
   color: yellow;

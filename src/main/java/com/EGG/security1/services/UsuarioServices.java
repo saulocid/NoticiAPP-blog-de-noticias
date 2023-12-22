@@ -2,8 +2,6 @@ package com.EGG.security1.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.EGG.security1.entities.Imagen;
 import com.EGG.security1.entities.Usuario;
 import com.EGG.security1.enums.Rol;
 import com.EGG.security1.exceptions.MyException;
@@ -28,6 +29,9 @@ public class UsuarioServices implements UserDetailsService {
 
     @Autowired
     private UsuarioRepository userRepo;
+
+    @Autowired
+    private ImagenServices is;
 
     // creamos el usuario UserDetails para adjuntarle los permisos
     @Override
@@ -56,24 +60,29 @@ public class UsuarioServices implements UserDetailsService {
 
     // registro de usuario
     @Transactional
-    public void registrarUsuario(String usuario, String email, String password, String password2) throws MyException {
+    public void registrarUsuario(MultipartFile archivo, String userName, String email, String password,
+            String password2) throws MyException {
 
         // antes de registrar el usuario validamos los inputs
-        validarUsuario(usuario, email, password, password2);
+        validarUsuario(userName, email, password, password2);
 
         // creamos usuario y seteamos atriburtos
-        Usuario u = new Usuario();
-        u.setUsername(usuario);
-        u.setEmail(email);
+        Usuario usuario = new Usuario();
+        usuario.setUsername(userName);
+        usuario.setEmail(email);
 
         // encriptamos la constraseña antes de setearla
-        u.setPassword(new BCryptPasswordEncoder().encode(password));
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
         // damos el rol USER por defecto
-        u.setRol(Rol.USER);
+        usuario.setRol(Rol.USER);
+
+        // creamos y seteamos la imagen
+        Imagen imagen = is.guardarImagen(archivo);
+        usuario.setImagen(imagen);
 
         // persistimos en el repositorio hacia la base de datos
-        userRepo.save(u);
+        userRepo.save(usuario);
     }
 
     // validacion de datos de usuario, si no se logra se lanza el error por pantalla
@@ -104,7 +113,7 @@ public class UsuarioServices implements UserDetailsService {
         }
 
         // buscamos usuarios si existen y...
-        List<Usuario> usuarios = userRepo.findAll();
+        List<Usuario> usuarios = listarUsuarios();
         if (usuarios != null) {
             for (Usuario user : usuarios) {
 
@@ -159,10 +168,27 @@ public class UsuarioServices implements UserDetailsService {
     }
 
     @Transactional
-    public void eliminarUsuario(String id) throws MyException{
+    public void eliminarUsuario(String id) throws MyException {
         validarStr(id);
         Usuario usuario = userRepo.buscarPorId(id);
         userRepo.delete(usuario);
+    }
+
+    @Transactional
+    public void cambiarImagen(MultipartFile archivo, String id) throws MyException {
+        validarStr(id);
+        String idImagen = null;
+        Usuario usuario = userRepo.buscarPorId(id);
+        try {
+            if (usuario != null) {
+                idImagen = usuario.getImagen().getId();
+            }
+            Imagen imagen = is.actualizarImagen(archivo, idImagen);
+            usuario.setImagen(imagen);
+            userRepo.save(usuario);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void validarStr(String dato) throws MyException {

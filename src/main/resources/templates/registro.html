@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
@@ -16,7 +16,7 @@
   </div>
   <div class="container" id="container">
     <div class="form-container sign-up-container">
-      <form action="/sesion/registrar" method="post">
+      <form action="/sesion/registrar" method="post" enctype="multipart/form-data">
         <h1>Crear cuenta</h1>
         <div class="social-container">
           <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -24,10 +24,11 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>O usa alguna de estas aplicaciones</span>
-        <input type="text" name="usuario" placeholder="Nombre de usuario" required/>
-        <input type="email" name="email" placeholder="Email" required/>
-        <input type="password" name="password" placeholder="Contraseña" required/>
-        <input type="password" name="password2" placeholder="Repetir cotraseña" required/>
+        <input type="text" name="usuario" placeholder="Nombre de usuario" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Contraseña" required />
+        <input type="password" name="password2" placeholder="Repetir cotraseña" required />
+        <input type="file" name="archivo" required/>
         <button type="submit">Registrar</button>
       </form>
     </div>
@@ -44,8 +45,9 @@
         <input type="password" name="password" placeholder="Contraseña" />
         <a href="#">¿Olvidaste tu contraseña?</a>
         <button type="submit">Ingresar</button>
-        <p class="error" th:if="${error!=null}" th:text="${error}"></p>
       </form>
+      <p class="error" th:if="${error!=null}" th:text="${error}"></p>
+      <p class="exito" th:if="${exito!=null}" th:text="${exito}"></p>
     </div>
     <div class="overlay-container">
       <div class="overlay">
