@@ -1,7 +1,6 @@
 package com.EGG.security1.entities;
 
 import com.EGG.security1.enums.Rol;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
