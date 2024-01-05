@@ -12,6 +12,8 @@
 
   <section class="main-content">
     <div class="container">
+      <h1 th:if="${logeado != null}" th:text="Bienvenid@ ${logeado.getUsername()}"></h1>
+      <p th:if="${logeado == null}">El usuario no existe</p>
       <h2>Aquí veras las noticias más recientes</h2>
       <p th:if="${noticias.isEmpty()}">No hay noticias cargadas aún</p>
       <div th:if="${!noticias.isEmpty()}">

@@ -52,7 +52,7 @@ public class UsuarioServices implements UserDetailsService {
 
             return new User(usuario.getEmail(), usuario.getPassword(), permisos);
         } else {
-            return null;
+            throw new UsernameNotFoundException("El usuario no se encontró");
         }
 
     }

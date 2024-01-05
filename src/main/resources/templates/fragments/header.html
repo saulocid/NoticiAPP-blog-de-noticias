@@ -14,7 +14,7 @@
                 <li><a href="/opinion/">Opinión</a></li>
                 <li sec:authorize="!hasAnyRole('USER','JOURNAL','ADMIN','MODERATOR')"><a href="/sesion/registro">Iniciar</a></li>
                 <li sec:authorize="hasAnyRole('USER','JOURNAL','ADMIN','MODERATOR')"><a href="/logout">Cerrar Sesión</a></li>
-                <!-- No funciona con sesion  -->
+                <!-- FUNCIONA! Pero solo para la primera parte  -->
                 <!-- <li th:if="${logeado == null}">
                     <a href="/sesion/registro">Iniciar</a>
                 </li>

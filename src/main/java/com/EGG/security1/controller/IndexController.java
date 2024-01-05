@@ -34,8 +34,7 @@ public class IndexController {
 
         // traemos usuario y validamos si es admin
         Usuario logeado = (Usuario) sesion.getAttribute("usuarioSesion");
-        model.addAttribute("usuarioSesion", sesion.getAttribute("usuarioSesion"));
-        model.addAttribute("logeado", logeado);
+        // model.addAttribute("logeado", logeado);
         if (logeado.getRol().toString().equals("ADMIN") || logeado.getRol().toString().equals("JOURNAL") || logeado.getRol().toString().equals("MODERATOR")) {
             return "redirect:/admin/";
         }
